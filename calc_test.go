@@ -156,28 +156,31 @@ func TestConvertToNumbers_SuccessNoInput(t *testing.T) {
 
 func TestAddValues_SuccessTwo(t *testing.T) {
 	result := addValues(1, 2)
-	if result != int(3) {
-		t.Fatalf("Expected 3, got %v", result)
+	expected := int(3)
+	if result != expected {
+		t.Fatalf("Expected %d, got %v", expected, result)
 	}
 }
 
 func TestAddValues_SuccessOne(t *testing.T) {
 	result := addValues(1)
-	if result != int(1) {
-		t.Fatalf("Expected 1, got %v", result)
+	expected := int(1)
+	if result != expected {
+		t.Fatalf("Expected %d, got %v", expected, result)
 	}
 }
 
 func TestAddValues_SuccessNone(t *testing.T) {
 	result := addValues()
-	if result != int(0) {
-		t.Fatalf("Expected 0, got %v", result)
+	expected := int(0)
+	if result != expected {
+		t.Fatalf("Expected %d, got %v", expected, result)
 	}
 }
 
 func TestAddValues_SuccessNegativeNumbers(t *testing.T) {
 	result := addValues(-1, -2, -3)
-	expected := -6
+	expected := int(-6)
 	if result != expected {
 		t.Fatalf("Expected %d, got %d", expected, result)
 	}
@@ -185,7 +188,7 @@ func TestAddValues_SuccessNegativeNumbers(t *testing.T) {
 
 func TestAddValues_SuccessMixedNumbers(t *testing.T) {
 	result := addValues(-1, 2, -3, 4)
-	expected := 2
+	expected := int(2)
 	if result != expected {
 		t.Fatalf("Expected %d, got %d", expected, result)
 	}
@@ -193,7 +196,54 @@ func TestAddValues_SuccessMixedNumbers(t *testing.T) {
 
 func TestAddValues_SuccessWithZero(t *testing.T) {
 	result := addValues(0, 1, 2, 3)
-	expected := 6
+	expected := int(6)
+	if result != expected {
+		t.Fatalf("Expected %d, got %d", expected, result)
+	}
+}
+
+func TestSubValues_SuccessTwo(t *testing.T) {
+	result := subValues(1, 2)
+	if result != int(-1) {
+		t.Fatalf("Expected -1, got %v", result)
+	}
+}
+
+func TestSubValues_SuccessOne(t *testing.T) {
+	result := subValues(1)
+	expected := int(1)
+	if result != expected {
+		t.Fatalf("Expected %d, got %v", expected, result)
+	}
+}
+
+func TestSubValues_SuccessNone(t *testing.T) {
+	result := subValues()
+	expected := int(0)
+	if result != expected {
+		t.Fatalf("Expected %d, got %v", expected, result)
+	}
+}
+
+func TestSubValues_SuccessNegativeNumbers(t *testing.T) {
+	result := subValues(-1, -2, -3)
+	expected := int(4)
+	if result != expected {
+		t.Fatalf("Expected %d, got %d", expected, result)
+	}
+}
+
+func TestSubValues_SuccessMixedNumbers(t *testing.T) {
+	result := subValues(-1, 2, -3, 4)
+	expected := int(-4)
+	if result != expected {
+		t.Fatalf("Expected %d, got %d", expected, result)
+	}
+}
+
+func TestSubValues_SuccessWithZero(t *testing.T) {
+	result := subValues(0, 1, 2, 3)
+	expected := int(-6)
 	if result != expected {
 		t.Fatalf("Expected %d, got %d", expected, result)
 	}

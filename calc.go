@@ -11,9 +11,9 @@ import (
 	"strings"
 )
 
-var errSingleChar = errors.New("More than one input, please enter a single character: (a, s, m, etc)")
-var errNoChar error = errors.New("No input, please enter a single character: (a, s, m, etc)")
-var errFailedRead error = errors.New("Failed to read input, Shutting down")
+var errSingleChar = errors.New("more than one input, please enter a single character: (a, s, m, etc)")
+var errNoChar error = errors.New("no input, please enter a single character: (a, s, m, etc)")
+var errFailedRead error = errors.New("failed to read input, shutting down")
 
 func getInput(reader io.Reader) (string, error) {
 	scanner := bufio.NewScanner(reader)
@@ -64,11 +64,25 @@ func addValues(numbers ...int) int {
 	return acc
 }
 
+func subValues(numbers ...int) int {
+	if len(numbers) == 0 {
+		return 0
+	} else if len(numbers) == 1 {
+		return numbers[0]
+	}
+	acc := numbers[0]
+	for i := 1; i < len(numbers); i++ {
+		acc -= numbers[i]
+	}
+	return acc
+}
+
 func generateMenu() {
 	fmt.Println("Pick an operation:")
 	fmt.Println("a) Add")
 	fmt.Println("s) Subtract")
 	fmt.Println("m) Multiply")
+	fmt.Println("q) Quit")
 }
 
 func main() {
@@ -97,6 +111,24 @@ func main() {
 				}
 				answer := addValues(numbers...)
 				fmt.Println("Your answer: ", answer)
+
+			case "s":
+				fmt.Print("Enter numbers Subtract: ")
+				inputs, err := getInputs(os.Stdin)
+				if err != nil {
+					fmt.Println(err)
+					continue
+				}
+				numbers, err := convertToNumbers(inputs...)
+				if err != nil {
+					fmt.Println(err)
+					continue
+				}
+				answer := subValues(numbers...)
+				fmt.Println("Your answer: ", answer)
+			case "q":
+				fmt.Println("Quitting Program...")
+				os.Exit(0)
 			}
 		}
 	}
