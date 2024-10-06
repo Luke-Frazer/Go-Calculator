@@ -64,6 +64,17 @@ func addValues(numbers ...int) int {
 	return acc
 }
 
+func multValues(numbers ...int) int {
+	if len(numbers) == 0 {
+		return 0
+	}
+	acc := 1
+	for _, number := range numbers {
+		acc *= number
+	}
+	return acc
+}
+
 func subValues(numbers ...int) int {
 	if len(numbers) == 0 {
 		return 0
@@ -113,7 +124,7 @@ func main() {
 				fmt.Println("Your answer: ", answer)
 
 			case "s":
-				fmt.Print("Enter numbers Subtract: ")
+				fmt.Print("Enter numbers to subtract: ")
 				inputs, err := getInputs(os.Stdin)
 				if err != nil {
 					fmt.Println(err)
@@ -125,6 +136,20 @@ func main() {
 					continue
 				}
 				answer := subValues(numbers...)
+				fmt.Println("Your answer: ", answer)
+			case "m":
+				fmt.Print("Enter numbers to multiply: ")
+				inputs, err := getInputs(os.Stdin)
+				if err != nil {
+					fmt.Println(err)
+					continue
+				}
+				numbers, err := convertToNumbers(inputs...)
+				if err != nil {
+					fmt.Println(err)
+					continue
+				}
+				answer := multValues(numbers...)
 				fmt.Println("Your answer: ", answer)
 			case "q":
 				fmt.Println("Quitting Program...")
